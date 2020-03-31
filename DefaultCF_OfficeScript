@@ -1,0 +1,22 @@
+async function main(context: Excel.RequestContext) {
+  // Change text comparison from range KK!C24
+  let conditionalFormatting = undefined;
+  let workbook = context.workbook;
+  let worksheets = workbook.worksheets;
+  let selectedSheet = worksheets.getActiveWorksheet();
+  conditionalFormatting = selectedSheet.getRange("C24").conditionalFormats.add("ContainsText");
+  conditionalFormatting.textComparison.format.font.color = "#9C5700";
+  conditionalFormatting.textComparison.format.fill.color = "#FFEB9C";
+  conditionalFormatting.textComparison.rule = {
+    "operator": "Contains",
+    "text": "=\"butterscotch\""
+  };
+  // Set range C4 on selectedSheet
+  selectedSheet.getRange("C4").values = [
+    ["butterscotch"]
+  ];
+  // Set range C24 on selectedSheet
+  selectedSheet.getRange("C24").values = [
+    ["butterscotch"]
+  ];
+}
